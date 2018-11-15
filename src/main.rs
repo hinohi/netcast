@@ -1,3 +1,4 @@
+
 use std::env;
 use std::error::Error;
 use std::io::{BufReader, BufWriter, Read, stderr, stdin, Write};
@@ -20,7 +21,7 @@ fn parse_args() -> Args {
 }
 
 
-fn close(err: &Error) {
+fn close(err: &Error) -> ! {
     writeln!(stderr(), "{}", err).unwrap();
     exit(1);
 }
@@ -29,7 +30,7 @@ fn main() {
     let args = parse_args();
     let mut writer = match TcpStream::connect(args.host) {
         Ok(s) => BufWriter::new(s),
-        Err(e) => return close(&e),
+        Err(e) => close(&e),
     };
     let mut buf: [u8; 128] = [0; 128];
     let mut reader = BufReader::new(stdin());
@@ -37,10 +38,10 @@ fn main() {
         match reader.read(&mut buf) {
             Ok(s) => {
                 if let Err(e) = writer.write_all(&buf[..s]) {
-                    return close(&e);
+                    close(&e);
                 }
             }
-            Err(e) => return close(&e),
+            Err(e) => close(&e),
         }
     }
 }
