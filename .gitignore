@@ -1,0 +1,13 @@
+# Rust
+/target
+**/*.rs.bk
+*.lock
+
+# Emacs
+*~
+\#*\#
+.\#*\#
+
+# jet brains
+.idea
+*.iml

@@ -1,0 +1,7 @@
+[package]
+name = "netcast"
+version = "0.1.0"
+authors = ["Daiju Nakayama <daiju.nakayama@e-seikatsu.co.jp>"]
+edition = "2018"
+
+[dependencies]
